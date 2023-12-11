@@ -3,8 +3,8 @@ using Newtonsoft.Json.Linq;
 using RestExample;
 using RestSharp;
 
-string baseUrl = "https://reqres.in/api/";
-var client = new RestClient(baseUrl);
+//string baseUrl = "https://reqres.in/api/";
+//var client = new RestClient(baseUrl);
 
 /*
 //GET
