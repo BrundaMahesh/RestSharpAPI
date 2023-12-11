@@ -71,8 +71,7 @@ Console.WriteLine("DELETE Response: \n" + deleteUserResponse.Content);
 
 //Parse & Handle API responses
 //GET
-var getUserRequest = new RestRequest("users", Method.Get);
-getUserRequest.AddQueryParameter("page", "2"); 
+var getUserRequest = new RestRequest("users/5", Method.Get);
 
 var getUserResponse = client.Execute(getUserRequest);
 if(getUserResponse.StatusCode == System.Net.HttpStatusCode.OK)
@@ -80,13 +79,14 @@ if(getUserResponse.StatusCode == System.Net.HttpStatusCode.OK)
     //Parse Json response content
     JObject? userJson = JObject.Parse(getUserResponse.Content);
 
-    string? pageno = userJson["page"].ToString();
-    string? userName = userJson["data"]["first_name"].ToString();
+    string? userFirstName = userJson["data"]["first_name"].ToString();
     string? userLastName = userJson["data"]["last_name"].ToString();
 
-    Console.WriteLine($"User Name: {pageno} {userName} {userLastName}");
+    Console.WriteLine($"User Name: {userFirstName} {userLastName}");
 }
 else
 {
     Console.WriteLine($"Error: {getUserResponse.ErrorMessage}");
 }
+
+
