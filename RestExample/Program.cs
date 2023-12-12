@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestExample;
 using RestSharp;
 
 string baseUrl = "https://reqres.in/api/";
@@ -140,6 +142,27 @@ static void DeleteUser(RestClient client)
 }
 
 //GET Single User
+//static void GetSingleUser(RestClient client)
+//{
+//    var getUserRequest = new RestRequest("users/5", Method.Get);
+
+//    var getUserResponse = client.Execute(getUserRequest);
+//    if (getUserResponse.StatusCode == System.Net.HttpStatusCode.OK)
+//    {
+//        //Parse Json response content
+//        JObject? userJson = JObject.Parse(getUserResponse.Content);
+
+//        string? userFirstName = userJson["data"]["first_name"].ToString();
+//        string? userLastName = userJson["data"]["last_name"].ToString();
+
+//        Console.WriteLine($"User Name: {userFirstName} {userLastName}");
+//    }
+//    else
+//    {
+//        Console.WriteLine($"Error: {getUserResponse.ErrorMessage}");
+//    }
+//}
+
 static void GetSingleUser(RestClient client)
 {
     var getUserRequest = new RestRequest("users/5", Method.Get);
@@ -147,16 +170,21 @@ static void GetSingleUser(RestClient client)
     var getUserResponse = client.Execute(getUserRequest);
     if (getUserResponse.StatusCode == System.Net.HttpStatusCode.OK)
     {
-        //Parse Json response content
-        JObject? userJson = JObject.Parse(getUserResponse.Content);
+        //Deserialize Json response content into C# object
+        var response = JsonConvert.DeserializeObject<UserDataResponse>(getUserResponse.Content);
 
-        string? userFirstName = userJson["data"]["first_name"].ToString();
-        string? userLastName = userJson["data"]["last_name"].ToString();
+        UserData? user = response?.Data;
 
-        Console.WriteLine($"User Name: {userFirstName} {userLastName}");
+        //Access properties of the deserialized object
+        Console.WriteLine("Get Single User Response:");
+        Console.WriteLine($"User Id:{user.Id}");
+        Console.WriteLine($"User Email:{user.Email}");
+        Console.WriteLine($"User Name:{user.FirstName} {user.LastName}");
+        Console.WriteLine($"User Avatar:{user.Avatar}");
     }
     else
     {
         Console.WriteLine($"Error: {getUserResponse.ErrorMessage}");
     }
 }
+
