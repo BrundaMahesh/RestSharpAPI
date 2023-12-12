@@ -95,6 +95,7 @@ else
 //*****************************************************************
 //Modularized code
 
+/*
 GetAllUsers(client);
 CreateUser(client);
 UpdateUser(client);
@@ -187,4 +188,6 @@ static void GetSingleUser(RestClient client)
         Console.WriteLine($"Error: {getUserResponse.ErrorMessage}");
     }
 }
-
+*/
+APIWithExceptions aPIWithExceptions = new APIWithExceptions();
+aPIWithExceptions.GetSingleUser();
