@@ -143,8 +143,8 @@ namespace RestExampleWithNUnit
         [Order(4)]
         public void GetNonExistingUserTest()
         {
-            test = extent.CreateTest("Get NonExistingUser");
-            Log.Information("DeleteUserTest Started");
+            test = extent.CreateTest("Get Non-Existing User");
+            Log.Information("Get Non-Exixting User Test Started");
 
             var request = new RestRequest("users/999", Method.Get);
             var response = client.Execute(request);
@@ -152,13 +152,13 @@ namespace RestExampleWithNUnit
             try
             {
                 Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.NotFound));
-                Log.Information("");
+                Log.Information("Get Non-Existing User test passed");
 
-                test.Pass("Get Non Existing User test passed");
+                test.Pass("Get Non-Existing User test passed");
             }
             catch(AssertionException)
             {
-                test.Fail("Get Non Existing User test failed");
+                test.Fail("Get Non-Existing User test failed");
             }
         }
     }
